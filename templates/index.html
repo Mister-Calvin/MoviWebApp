@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>iMovieWebApp – Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 Welcome to iMovieWebApp 🎉</h1>
+
+        {# MESSAGE AREA #}
+        {% if message %}
+            <div class="message error">
+                ⚠️ {{ message }}
+            </div>
+        {% endif %}
+
+        <h2>👥 Registered Users</h2>
+        <ul class="user-list">
+            {% for user in users %}
+                <li><a href="/users/{{ user.id }}/movies">{{ user.name }}</a></li>
+            {% endfor %}
+        </ul>
+
+        <h2>➕ Add New User</h2>
+        <form action="/users" method="POST" class="add-user-form">
+            <input type="text" name="name" placeholder="Enter name..." required>
+            <button type="submit">Add User 🚀</button>
+        </form>
+    </div>
+</body>
+</html>

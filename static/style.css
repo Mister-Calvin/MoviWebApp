@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&display=swap');
+
+body {
+    font-family: 'Fredoka', sans-serif;
+    background: linear-gradient(135deg, #ffe259, #ffa751);
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    background: #fff8dc;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 8px 8px 0px #ff9f1c;
+    border: 3px dashed #ff1654;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #ff1654;
+    text-shadow: 2px 2px #fcd34d;
+}
+
+.user-list {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+.user-list li {
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+.user-list a {
+    color: #333;
+    background: #fcd34d;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: 2px solid #ff9f1c;
+    transition: all 0.2s ease-in-out;
+}
+
+.user-list a:hover {
+    background: #ff9f1c;
+    color: white;
+}
+
+.add-user-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.add-user-form input {
+    padding: 10px;
+    border: 2px solid #ff1654;
+    border-radius: 10px;
+    width: 60%;
+    margin-bottom: 15px;
+    font-size: 1em;
+}
+
+.add-user-form button {
+    background: #ff1654;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 10px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 2px 2px 0px #333;
+}
+
+.add-user-form button:hover {
+    background: #ff5733;
+}
+
+.message {
+    text-align: center;
+    font-weight: bold;
+    margin: 20px auto;
+    padding: 15px 20px;
+    border-radius: 10px;
+    width: 80%;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+.message.error {
+    background-color: #ffcccc;
+    color: #990000;
+    border: 2px solid #ff4d4d;
+}
