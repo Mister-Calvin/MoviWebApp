@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from data_manager import DataManager
 from models import db, Movie
+from api_movies import search_movie_and_get_movies
 
 
 app = Flask(__name__)
@@ -30,6 +31,29 @@ def list_users():
     if name:
         data_manager.create_user(name) # erstelle datensatz
     return redirect ('/')
+
+
+@app.route('/users/<int:user_id>/movies', methods=['GET'])
+def list_movies(user_id):
+    users = data_manager.get_movies(user_id)
+    return render_template('show_movies.html', users=users)
+
+
+
+
+
+@app.route('/test-add')
+def test_add_movie():
+    data = search_movie_and_get_movies("Avatar")
+    new_movie = Movie(
+        name=data['Title'],
+        year=data['Year'],
+        director=data['Director'],
+        poster_url=data['Poster'],
+        user_id=1
+    )
+    data_manager.add_movie(new_movie)
+    return data_manager.get_movies(user_id=1)
 
 
 if __name__ == '__main__':
