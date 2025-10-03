@@ -4,6 +4,7 @@
 <div class="container">
     <h1>🎞️ Movies for User ID {{ user_id }}</h1>
 
+
     {% if movies %}
         <ul>
         {% for movie in movies %}
@@ -17,9 +18,14 @@
     {% else %}
         <p>No movies found for this user.</p>
     {% endif %}
+    <h2>➕ Add New Movie</h2>
+    <form action="/users/<int:user_id>/movies" method="POST" class="add-user-form">
+        <input type="text" name="name" placeholder="Enter name..." required>
+        <button type="submit">Add Movie 🚀</button>
+    </form>
 
     <div class="back-link">
-        <a href="{{ url_for('list_users') }}">⬅️ Back to Home</a>
+        <a href="{{ url_for('home') }}">⬅️ Back to Home</a>
     </div>
 </div>
 {% endblock %}
