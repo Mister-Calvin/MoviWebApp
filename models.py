@@ -1,13 +1,14 @@
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()
+db = SQLAlchemy() #DATENBANK
+#STRUKTUR
 
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
 
-    movies = db.relationship('Movie', backref='user', lazy='True')
+    movies = db.relationship('Movie', backref='user', lazy=True)
 
     def __str__(self):
         return f"Username: {self.name} - ID: {self.id}"
