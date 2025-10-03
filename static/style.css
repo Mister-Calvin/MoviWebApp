@@ -262,3 +262,27 @@ h1, h2 {
     display: flex;
     gap: 5px;
 }
+
+.user-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-item {
+    display: flex;
+    justify-content: space-between; /* Name links, Button rechts */
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.user-info a {
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+
+.user-actions form {
+    margin: 0;
+}
