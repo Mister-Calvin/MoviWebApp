@@ -6,25 +6,32 @@
 
 
     {% if movies %}
-        <ul>
-        {% for movie in movies %}
-           <li>
-        <strong>{{ movie.name }}</strong> ({{ movie.year }}) – directed by {{ movie.director }}
-        <br>
-        <img src="{{ movie.poster_url }}" width="100">
+        <ul class="movie-list">
+    {% for movie in movies %}
+    <li class="movie-item">
+        <div class="movie-info">
+            <img src="{{ movie.poster_url }}" width="100" alt="{{ movie.name }}">
+            <div class="movie-details">
+                <strong>{{ movie.name }}</strong> ({{ movie.year }})<br>
+                <em>Directed by:</em> {{ movie.director }}
+            </div>
+        </div>
 
+        <div class="movie-actions">
+            <!-- Update Form -->
+            <form action="{{ url_for('update_movie', user_id=user.id, movie_id=movie.id) }}" method="POST" class="update-form">
+                <input type="text" name="new_name" placeholder="New title..." required>
+                <button type="submit">✏️ Update</button>
+            </form>
 
-        <form action="{{ url_for('update_movie', movie_id=movie.id, user_id=user.id) }}" method="POST" style="margin-top: 10px;">
-            <input type="text" name="new_name" placeholder="New title..." required>
-            <button type="submit">Update Title ✏️</button>
-        </form>
-
-               <form action="{{ url_for('delete_movie', user_id=user.id, movie_id=movie.id) }}" method="POST" style="display:inline;">
-    <button type="submit">🗑️ Delete</button>
-    </form>
-            </li>
-        {% endfor %}
-        </ul>
+            <!-- Delete Form -->
+            <form action="{{ url_for('delete_movie', user_id=user.id, movie_id=movie.id) }}" method="POST" class="delete-form">
+                <button type="submit" onclick="return confirm('Delete this movie?')">🗑️ Delete</button>
+            </form>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
     {% else %}
         <p>No movies found for this user.</p>
     {% endif %}

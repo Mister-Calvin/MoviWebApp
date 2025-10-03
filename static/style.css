@@ -226,3 +226,39 @@ h1, h2 {
 .back-link a:hover {
     color: #d90429;
 }
+
+.movie-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.movie-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+    gap: 20px;
+}
+
+.movie-info {
+    display: flex;
+    gap: 15px;
+}
+
+.movie-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.movie-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.movie-actions form {
+    display: flex;
+    gap: 5px;
+}
