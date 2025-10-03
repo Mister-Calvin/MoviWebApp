@@ -24,10 +24,10 @@ class DataManager():
             db.session.rollback()
             return False
 
-    def update_movie(self, movie_id, new_title):
-        movie_to_update = Movie.query.filter_by(id=movie_id).first()
-        if movie_to_update:
-            movie_to_update.name = new_title
+    def update_movie_title(self, movie_id, new_title):
+        movie = Movie.query.get(movie_id)
+        if movie:
+            movie.name = new_title
             db.session.commit()
             return True
         return False
