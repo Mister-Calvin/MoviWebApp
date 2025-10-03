@@ -19,7 +19,7 @@
         <p>No movies found for this user.</p>
     {% endif %}
     <h2>➕ Add New Movie</h2>
-    <form action="/users/<int:user_id>/movies" method="POST" class="add-user-form">
+    <form action="{{ url_for('list_movies', user_id=user.id) }}" method="POST" class="add-user-form">
         <input type="text" name="name" placeholder="Enter name..." required>
         <button type="submit">Add Movie 🚀</button>
     </form>

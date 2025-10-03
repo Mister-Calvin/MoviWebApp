@@ -33,10 +33,34 @@ def list_users():
     return redirect ('/')
 
 
-@app.route('/users/<int:user_id>/movies', methods=['GET'])
+@app.route('/users/<int:user_id>/movies', methods=['GET', 'POST'])
 def list_movies(user_id):
-    users = data_manager.get_movies(user_id)
-    return render_template('show_movies.html', users=users)
+    if request.method == 'POST':
+        title = request.form.get('name')
+        movie_data = search_movie_and_get_movies(title)
+
+        new_movie = Movie(
+            name=title,
+            year=movie_data['Year'],
+            director=movie_data['Director'],
+            poster_url=movie_data['Poster'],
+            user_id=user_id
+
+        )
+        data_manager.add_movie(new_movie)
+
+    users = data_manager.get_users()
+    user = next((u for u in users if u.id == user_id), None)
+    if not user:
+        return "User not found", 404
+
+    movies = data_manager.get_movies(user_id=user_id)
+
+    return render_template('show_movies.html', users=users, movies=movies, user=user)
+
+
+    #users = data_manager.get_movies(user_id)
+    #return render_template('show_movies.html', users=users)
 
 
 
