@@ -9,6 +9,14 @@ class DataManager():
     def get_users(self):
         return User.query.all()
 
+    def delete_user(self, user_id):
+        user = User.query.get(user_id)
+        if user:
+            for movie in user.movies:
+                db.session.delete(movie)
+            db.session.delete(user)
+            db.session.commit()
+
     def get_movies(self, user_id):
         return Movie.query.filter_by(user_id=user_id).all()
 

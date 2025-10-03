@@ -76,6 +76,11 @@ def update_movie(user_id, movie_id):
 
     return redirect(url_for('list_movies', user_id=user_id))
 
+@app.route('/users/<int:user_id>/delete', methods=['POST'])
+def delete_user(user_id):
+    data_manager.delete_user(user_id)
+    return redirect('/')
+
 
 
 if __name__ == '__main__':

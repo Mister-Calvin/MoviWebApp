@@ -13,6 +13,9 @@
     <ul class="user-list">
         {% for user in users %}
             <li><a href="/users/{{ user.id }}/movies">{{ user.name }}</a></li>
+        <form action="{{ url_for('delete_user', user_id=user.id) }}" method="POST" style="display:inline;">
+    <button type="submit" onclick="return confirm('User wirklich löschen?')">🗑️ Delete</button>
+</form>
         {% endfor %}
     </ul>
 
