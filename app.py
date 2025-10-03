@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from data_manager import DataManager
 from models import db, Movie
 from api_movies import search_movie_and_get_movies
@@ -59,25 +59,13 @@ def list_movies(user_id):
     return render_template('show_movies.html', users=users, movies=movies, user=user)
 
 
-    #users = data_manager.get_movies(user_id)
-    #return render_template('show_movies.html', users=users)
-
-
-
-
-
-@app.route('/test-add')
-def test_add_movie():
-    data = search_movie_and_get_movies("Avatar")
-    new_movie = Movie(
-        name=data['Title'],
-        year=data['Year'],
-        director=data['Director'],
-        poster_url=data['Poster'],
-        user_id=1
-    )
-    data_manager.add_movie(new_movie)
-    return data_manager.get_movies(user_id=1)
+@app.route('/users/<int:user_id>/movies/<int:movie_id>/delete', methods=['POST'])
+def delete_movie(user_id, movie_id):
+    movie = data_manager.get_movie(movie_id)
+    if not movie:
+        return "Movie not found", 404
+    data_manager.delete_movie(movie_id)
+    return redirect(url_for('list_movies', user_id=user_id))
 
 
 if __name__ == '__main__':
