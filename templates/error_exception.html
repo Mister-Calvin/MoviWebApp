@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unexpected Error</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="error-container">
+        <h1>💥 An Unexpected Error Occurred</h1>
+        <p>What did you do? You triggered an error even I didn’t expect! 😱</p>
+
+        {% if error %}
+            <div class="error-details">
+                <strong>Error details:</strong>
+                <pre>{{ error }}</pre>
+            </div>
+        {% endif %}
+
+        <a href="{{ url_for('index') }}">⬅️ Go back to Home</a>
+    </div>
+</body>
+</html>

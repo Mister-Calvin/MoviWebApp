@@ -97,6 +97,10 @@ def method_not_allowed_error(error):
 def internal_server_error(error):
     return render_template('error_500.html'), 500
 
+@app.errorhandler(Exception)
+def handle_all_exceptions(e):
+    return render_template("error_exception.html", error=str(e)), 500
+
 
 
 
