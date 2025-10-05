@@ -35,28 +35,31 @@ def list_users():
 
 @app.route('/users/<int:user_id>/movies', methods=['GET', 'POST'])
 def list_movies(user_id):
-    if request.method == 'POST':
-        title = request.form.get('name')
-        movie_data = search_movie_and_get_movies(title)
+    try:
+        if request.method == 'POST':
+            title = request.form.get('name')
+            movie_data = search_movie_and_get_movies(title)
 
-        new_movie = Movie(
-            name=title,
-            year=movie_data['Year'],
-            director=movie_data['Director'],
-            poster_url=movie_data['Poster'],
-            user_id=user_id
+            new_movie = Movie(
+                name=title,
+                year=movie_data['Year'],
+                director=movie_data['Director'],
+                poster_url=movie_data['Poster'],
+                user_id=user_id
 
-        )
-        data_manager.add_movie(new_movie)
+            )
+            data_manager.add_movie(new_movie)
 
-    users = data_manager.get_users()
-    user = next((u for u in users if u.id == user_id), None)
-    if not user:
-        return "User not found", 404
+        users = data_manager.get_users()
+        user = next((u for u in users if u.id == user_id), None)
+        if not user:
+            return "User not found", 404
 
-    movies = data_manager.get_movies(user_id=user_id)
+        movies = data_manager.get_movies(user_id=user_id)
 
-    return render_template('show_movies.html', users=users, movies=movies, user=user)
+        return render_template('show_movies.html', users=users, movies=movies, user=user)
+    except KeyError:
+        return render_template('error_key.html')
 
 
 @app.route('/users/<int:user_id>/movies/<int:movie_id>/delete', methods=['POST'])
@@ -80,6 +83,21 @@ def update_movie(user_id, movie_id):
 def delete_user(user_id):
     data_manager.delete_user(user_id)
     return redirect('/')
+
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('error_404.html'), 404
+
+
+@app.errorhandler(405)
+def method_not_allowed_error(error):
+    return render_template('error_405.html'), 405
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return render_template('error_500.html'), 500
+
+
 
 
 

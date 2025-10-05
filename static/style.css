@@ -286,3 +286,43 @@ h1, h2 {
 .user-actions form {
     margin: 0;
 }
+.error-container {
+    text-align: center;
+    padding: 60px 20px;
+    border: 5px dashed #ff1654;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #fff8dc, #ffe4e1);
+    box-shadow: 6px 6px 0px #ff9f1c;
+    max-width: 600px;
+    margin: 80px auto;
+}
+
+.error-code {
+    font-size: 96px;
+    font-weight: bold;
+    color: #ff1654;
+    margin: 0;
+    text-shadow: 2px 2px 0px #fcd34d;
+}
+
+.error-text {
+    font-size: 1.5em;
+    color: #333;
+    margin: 20px 0;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #ff1654;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s;
+    box-shadow: 3px 3px 0px #333;
+}
+
+.btn:hover {
+    background-color: #d90429;
+}
