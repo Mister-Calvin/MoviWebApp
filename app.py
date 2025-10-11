@@ -26,11 +26,14 @@ def home():
 def list_users():
     name = request.form.get('name') #gib namen ein
     existing_users = data_manager.get_users()
-    if any(user.name == name for user in existing_users):
+    if not name or name.strip() == "":
+        return render_template('index.html', message='Name cannot be empty', users=existing_users)
+
+    if any(user.name.lower() == name.lower() for user in existing_users):
         return render_template('index.html', message='User with that name already exists', users=existing_users)
-    if name:
-        data_manager.create_user(name) # erstelle datensatz
-    return redirect ('/')
+
+    data_manager.create_user(name.strip())
+    return redirect('/')
 
 
 @app.route('/users/<int:user_id>/movies', methods=['GET', 'POST'])
