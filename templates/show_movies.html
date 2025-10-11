@@ -11,10 +11,12 @@
     <li class="movie-item">
         <div class="movie-info">
             <img src="{{ movie.poster_url }}" width="100" alt="{{ movie.name }}">
-            <div class="movie-details">
-                <strong>{{ movie.name }}</strong> ({{ movie.year }})<br>
-                <em>Directed by:</em> {{ movie.director }}
-            </div>
+           <div class="movie-details">
+    <strong>{{ movie.name }}</strong> ({{ movie.year }})<br>
+    <em>Directed by:</em> {{ movie.director }}<br>
+     <em>Rating: {{ movie.rating }} </em>
+    </div>
+
         </div>
 
         <div class="movie-actions">
@@ -23,6 +25,10 @@
                 <input type="text" name="new_name" placeholder="New title..." required>
                 <button type="submit">✏️ Update</button>
             </form>
+           <form action="{{ url_for('update_rating', user_id=user.id, movie_id=movie.id) }}" method="POST" class="update-rating-form">
+        <input type="text" name="new_rating" placeholder="New rating (e.g. 8.5)" required>
+        <button type="submit">⭐ Update Rating</button>
+        </form>
 
             <!-- Delete Form -->
             <form action="{{ url_for('delete_movie', user_id=user.id, movie_id=movie.id) }}" method="POST" class="delete-form">

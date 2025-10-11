@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from data_manager import DataManager
 from models import db, Movie
 from api_movies import search_movie_and_get_movies
@@ -14,6 +14,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)  # Link the database and the app. This is the reason you need to import db from models
 
 data_manager = DataManager() # Create an object of your DataManager class
+app.secret_key = "some_secret_key"
 
 
 
@@ -48,6 +49,7 @@ def list_movies(user_id):
                 year=movie_data['Year'],
                 director=movie_data['Director'],
                 poster_url=movie_data['Poster'],
+                rating=movie_data['imdbRating'],
                 user_id=user_id
 
             )
@@ -79,6 +81,38 @@ def update_movie(user_id, movie_id):
 
     if new_name:
         data_manager.update_movie_title(movie_id, new_name)
+
+    return redirect(url_for('list_movies', user_id=user_id))
+
+
+from flask import flash
+
+@app.route('/users/<int:user_id>/movies/<int:movie_id>/update_rating', methods=['POST'])
+def update_rating(user_id, movie_id):
+    """Updates the rating of a movie."""
+    new_rating = request.form.get('new_rating')
+
+    # Prüfen, ob Eingabe leer ist
+    if not new_rating or new_rating.strip() == "":
+        flash("❌ Rating cannot be empty.", "error")
+        return redirect(url_for('list_movies', user_id=user_id))
+
+    # Prüfen, ob Zahl zwischen 0 und 10
+    try:
+        rating_value = float(new_rating)
+        if rating_value < 0 or rating_value > 10:
+            flash("❌ Rating must be between 0 and 10.", "error")
+            return redirect(url_for('list_movies', user_id=user_id))
+    except ValueError:
+        flash("❌ Rating must be a number between 0 and 10.", "error")
+        return redirect(url_for('list_movies', user_id=user_id))
+
+    # Wenn alles ok → Rating speichern
+    try:
+        data_manager.update_movie_rating(movie_id, new_rating)
+        flash("✅ Rating updated successfully!", "success")
+    except Exception as e:
+        flash(f"⚠️ Failed to update rating: {e}", "error")
 
     return redirect(url_for('list_movies', user_id=user_id))
 

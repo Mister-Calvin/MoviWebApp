@@ -40,6 +40,14 @@ class DataManager():
             return True
         return False
 
+    def update_movie_rating(self, movie_id, new_rating):
+        movie = Movie.query.get(movie_id)
+        if movie:
+            movie.rating = new_rating
+            db.session.commit()
+            return True
+        return False
+
     def delete_movie(self, movie_id):
         movie_to_delete = Movie.query.filter_by(id=movie_id).first()
         if movie_to_delete:
