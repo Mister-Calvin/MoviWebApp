@@ -30,24 +30,66 @@ h1, h2 {
     text-align: center;
 }
 
-.user-list li {
-    margin: 10px 0;
-    font-size: 1.2em;
+/* 🔹 Benutzerliste: Name links, Button rechts */
+.user-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
+.user-list li {
+    display: flex;
+    justify-content: space-between; /* verteilt Name & Button */
+    align-items: center;
+    background: #fffbea;
+    border: 2px dashed #ff9f1c;
+    border-radius: 10px;
+    padding: 12px 18px;
+    margin-bottom: 10px;
+    box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+    transition: 0.25s;
+}
+
+.user-list li:hover {
+    transform: scale(1.02);
+    background: #fff3cd;
+}
+
+/* 🔸 Username-Link */
 .user-list a {
     color: #333;
-    background: #fcd34d;
-    padding: 10px 20px;
-    border-radius: 10px;
+    background: transparent;
     text-decoration: none;
-    border: 2px solid #ff9f1c;
-    transition: all 0.2s ease-in-out;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: color 0.2s ease-in-out;
 }
 
 .user-list a:hover {
-    background: #ff9f1c;
+    color: #ff1654;
+}
+
+/* 🔸 Delete-Button rechts daneben */
+.user-list form {
+    margin: 0;
+}
+
+.user-list button {
+    background: linear-gradient(135deg, #ff1654, #d90429);
     color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.95em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+    transition: all 0.25s ease-in-out;
+}
+
+.user-list button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.15);
 }
 
 .add-user-form {
@@ -258,33 +300,98 @@ h1, h2 {
     gap: 8px;
 }
 
+/* 🔹 Strukturierte Anordnung aller Formular-Buttons */
+.movie-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px; /* Abstand zwischen den Formularblöcken */
+    margin-top: 15px;
+}
+
+/* Jeder einzelne Formularblock (Update, Rating, Delete) */
 .movie-actions form {
     display: flex;
-    gap: 5px;
-}
-
-.user-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-.user-item {
-    display: flex;
-    justify-content: space-between; /* Name links, Button rechts */
+    justify-content: center;
     align-items: center;
+    gap: 12px; /* Abstand zwischen Input und Button */
+    background: #fffbea;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: 3px dashed #ff9f1c;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 500px;
+}
+
+/* 🔸 Eingabefelder */
+.movie-actions input {
     padding: 10px;
-    border-bottom: 1px solid #ccc;
+    border: 3px solid #ff1654;
+    border-radius: 10px;
+    width: 60%;
+    font-size: 1em;
+    text-align: center;
+    outline: none;
+    transition: 0.25s;
 }
 
-.user-info a {
+.movie-actions input:focus {
+    border-color: #00bcd4;
+    box-shadow: 0 0 5px #00bcd4;
+}
+
+/* 🔸 Buttons – Grunddesign */
+.movie-actions button {
+    background: linear-gradient(135deg, #00bcd4, #0288d1);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 1em;
     font-weight: bold;
-    text-decoration: none;
-    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.3);
 }
 
-.user-actions form {
-    margin: 0;
+/* Hover-Effekt für alle Buttons */
+.movie-actions button:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #0288d1, #00acc1);
+}
+
+/* 🔸 Spezialfarben */
+.update-form button {
+    background: linear-gradient(135deg, #00bcd4, #0288d1);
+}
+
+.update-rating-form button {
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
+}
+
+.delete-form button {
+    background: linear-gradient(135deg, #ff1654, #d90429);
+}
+
+/* 🔸 Hover-Farben individuell */
+.update-rating-form button:hover {
+    background: linear-gradient(135deg, #2e7d32, #43a047);
+}
+
+.delete-form button:hover {
+    background: linear-gradient(135deg, #d90429, #ff1654);
+}
+
+/* Optional: sanfter Einblendeffekt */
+.movie-actions form {
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+
 }
 .error-container {
     text-align: center;
@@ -325,4 +432,58 @@ h1, h2 {
 
 .btn:hover {
     background-color: #d90429;
+}
+/* 🔹 Flash message styles (Flask messages) */
+.flashes {
+    list-style: none;
+    padding: 0;
+    margin: 20px auto;
+    max-width: 600px;
+    text-align: center;
+}
+
+.flashes li {
+    display: block;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 1.1em;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+    border: 3px dashed #ff9f1c;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Erfolgreiche Aktionen (grün) */
+.flashes li.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #28a745;
+}
+
+/* Fehler oder ungültige Eingabe (rot) */
+.flashes li.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #ff1654;
+}
+
+/* Warnungen (gelb/orange) */
+.flashes li.warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border-color: #ff9f1c;
+}
+
+/* Info-Meldungen (blau) */
+.flashes li.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border-color: #00bcd4;
+}
+
+/* Kleine Einblendanimation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
